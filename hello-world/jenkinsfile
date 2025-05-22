@@ -11,13 +11,11 @@ pipeline {
                    sh 'docker build -t hello-world-app -f hello-world/Dockerfile hello-world/'
                 }
             }
-        }
         stage('Deploy') {
             steps {
                     sh "docker run -d --name reactapp -p 3000:3000 hello-world-app"
                 }
             }
-        }
         stage('Push DockerImage') {
             steps {
                 withCredentials([usernamePassword(credentialsId: "${DOCKER_REGISTRY_CREDS}", passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
