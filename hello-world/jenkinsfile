@@ -8,14 +8,12 @@ pipeline {
         }
         stage('build') {
             steps {
-                script {
-                    docker.build('hello-world-app')
+                   sh 'docker build -t hello-world-app -f hello-world/Dockerfile hello-world/'
                 }
             }
         }
         stage('Deploy') {
             steps {
-                script {
                     sh "docker run -d --name reactapp -p 3000:3000 hello-world-app"
                 }
             }
